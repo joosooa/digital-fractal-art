@@ -72,15 +72,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
           pointerEvents: 'none',
         }}
       />
-      {/* Desktop only - Top label */}
-      <div className="hidden md:block fixed top-8 left-1/2 -translate-x-1/2 z-20">
-        <span 
-          className="text-xs tracking-[0.3em] uppercase text-neutral-400"
-          style={{ fontFamily: "'Courier Prime', monospace" }}
-        >
-          FOOD AI DASHBOARD
-        </span>
-      </div>
+      {/* Desktop only - Top label - removed from form section per request */}
 
       {/* Close button */}
       <button 
@@ -184,7 +176,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
                 >
                   <SelectValue placeholder="직무를 선택해주세요" />
                 </SelectTrigger>
-                <SelectContent className="rounded-xl border-neutral-200/60 bg-white/95 backdrop-blur-xl">
+                <SelectContent className="rounded-xl border-neutral-200 bg-white shadow-xl z-[100]">
                   <SelectItem value="executive" className="rounded-lg">경영진</SelectItem>
                   <SelectItem value="marketing" className="rounded-lg">마케팅</SelectItem>
                   <SelectItem value="product" className="rounded-lg">제품개발</SelectItem>
@@ -212,7 +204,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
                 >
                   <SelectValue placeholder="지역을 선택해주세요" />
                 </SelectTrigger>
-                <SelectContent className="rounded-xl border-neutral-200/60 bg-white/95 backdrop-blur-xl">
+                <SelectContent className="rounded-xl border-neutral-200 bg-white shadow-xl z-[100]">
                   <SelectItem value="asia" className="rounded-lg">아시아</SelectItem>
                   <SelectItem value="europe" className="rounded-lg">유럽</SelectItem>
                   <SelectItem value="north-america" className="rounded-lg">북미</SelectItem>
