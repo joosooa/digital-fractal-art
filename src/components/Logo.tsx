@@ -24,23 +24,58 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
 
   return (
     <>
-      {/* Full screen magenta water fill - refined gradient */}
+      {/* Full screen magenta water fill - gradient from transparent bottom to solid top */}
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'linear-gradient(180deg, hsl(330 100% 42%) 0%, hsl(330 100% 48%) 100%)',
+          background: `linear-gradient(
+            0deg, 
+            hsla(330, 100%, 45%, 0.3) 0%, 
+            hsla(330, 100%, 45%, 0.5) 15%,
+            hsla(330, 100%, 45%, 0.7) 30%,
+            hsla(330, 100%, 45%, 0.85) 50%,
+            hsl(330, 100%, 45%) 70%,
+            hsl(330, 100%, 42%) 85%,
+            hsl(330, 100%, 38%) 100%
+          )`,
           clipPath: `inset(${100 - fillPercent}% 0 0 0)`,
           transition: 'clip-path 0.3s cubic-bezier(0.33, 1, 0.68, 1)',
           zIndex: 5
         }}
       />
 
-      {/* Subtle gradient overlay for depth */}
+      {/* Depth gradient overlay - darker at top for more richness */}
       {fillPercent > 0 && (
         <div 
           className="fixed inset-0 pointer-events-none"
           style={{
-            background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%)',
+            background: `linear-gradient(
+              0deg,
+              transparent 0%,
+              rgba(100, 0, 60, 0.1) 40%,
+              rgba(80, 0, 50, 0.2) 70%,
+              rgba(60, 0, 40, 0.3) 100%
+            )`,
+            clipPath: `inset(${100 - fillPercent}% 0 0 0)`,
+            transition: 'clip-path 0.3s cubic-bezier(0.33, 1, 0.68, 1)',
+            zIndex: 5
+          }}
+        />
+      )}
+
+      {/* Shimmer highlight for liquid effect */}
+      {fillPercent > 0 && (
+        <div 
+          className="fixed inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(
+              135deg,
+              transparent 0%,
+              transparent 40%,
+              rgba(255, 255, 255, 0.05) 50%,
+              transparent 60%,
+              transparent 100%
+            )`,
             clipPath: `inset(${100 - fillPercent}% 0 0 0)`,
             transition: 'clip-path 0.3s cubic-bezier(0.33, 1, 0.68, 1)',
             zIndex: 5
