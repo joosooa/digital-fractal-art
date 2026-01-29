@@ -147,22 +147,22 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
             YOFLÉ
           </h1>
           
-          {/* Hero tagline - refined typography */}
+          {/* Hero tagline - Inter font, refined */}
           <div 
-            className="mt-6 overflow-hidden"
+            className="mt-8 overflow-hidden"
             style={{
               opacity: isComplete ? 1 : 0,
-              transition: 'opacity 0.8s ease-out',
+              transition: 'opacity 1s ease-out',
             }}
           >
             <p 
-              className="text-sm md:text-base tracking-[0.3em] uppercase"
+              className="text-base md:text-xl tracking-wide"
               style={{
                 color: 'white',
                 mixBlendMode: 'difference',
-                fontFamily: "'Courier Prime', monospace",
-                fontWeight: 400,
-                letterSpacing: '0.25em',
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 300,
+                letterSpacing: '0.05em',
               }}
             >
               세상의 식품 트렌드를 한 스푼 먼저 맛보다

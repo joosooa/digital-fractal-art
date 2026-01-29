@@ -4,6 +4,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
@@ -45,6 +46,7 @@
     /* Font families */
     --font-mono: 'Courier Prime', monospace;
     --font-display: 'Montserrat', sans-serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
   }
 
   .dark {
