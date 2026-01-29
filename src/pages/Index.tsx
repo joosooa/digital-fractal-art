@@ -104,19 +104,24 @@ const Index = () => {
         <Instruction text={fillPercent >= 100 ? "SCROLL DOWN TO CONTINUE" : "SCROLL TO DECODE"} />
       </div>
 
-      {/* Gradient Transition Zone */}
+      {/* Gradient Transition Zone - Extended */}
       <div 
-        className="fixed inset-0 pointer-events-none transition-opacity duration-700"
+        className="fixed inset-0 pointer-events-none transition-opacity duration-1000"
         style={{ 
-          opacity: scrollOffset > 20 && scrollOffset < 80 ? (scrollOffset - 20) / 30 : scrollOffset >= 80 ? 1 - (scrollOffset - 80) / 20 : 0,
+          opacity: scrollOffset > 10 && scrollOffset < 90 
+            ? Math.min(1, (scrollOffset - 10) / 20) * (scrollOffset < 70 ? 1 : 1 - (scrollOffset - 70) / 20)
+            : 0,
           background: `linear-gradient(
             180deg,
-            hsl(330, 100%, 38%) 0%,
-            hsl(330, 100%, 42%) 20%,
-            hsl(330, 80%, 50%) 40%,
-            hsl(340, 60%, 70%) 60%,
+            hsl(330, 100%, 35%) 0%,
+            hsl(330, 100%, 40%) 10%,
+            hsl(330, 95%, 45%) 20%,
+            hsl(335, 85%, 55%) 35%,
+            hsl(340, 70%, 65%) 50%,
+            hsl(345, 55%, 75%) 65%,
             hsl(350, 40%, 85%) 80%,
-            hsl(0, 20%, 95%) 100%
+            hsl(355, 25%, 92%) 90%,
+            hsl(0, 15%, 97%) 100%
           )`,
           zIndex: 15
         }}
@@ -124,10 +129,10 @@ const Index = () => {
 
       {/* Form Section */}
       <div 
-        className="fixed inset-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className="fixed inset-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ 
-          transform: `translateY(${Math.max(0, 100 - scrollOffset * 1.2)}%)`,
-          opacity: scrollOffset < 40 ? 0 : (scrollOffset - 40) / 30,
+          transform: `translateY(${Math.max(0, 100 - scrollOffset * 1.1)}%)`,
+          opacity: scrollOffset < 50 ? 0 : Math.min(1, (scrollOffset - 50) / 25),
           zIndex: 20
         }}
       >

@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Sparkles, TrendingUp, Globe } from 'lucide-react';
 
 interface AccessFormProps {
   onClose: () => void;
@@ -22,18 +22,26 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
     role: '',
     region: '',
   });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
   };
+
+  const inputBaseClass = `
+    bg-white/60 backdrop-blur-md border-neutral-200/60 text-neutral-900 
+    placeholder:text-neutral-400 h-14 rounded-2xl 
+    transition-all duration-500 ease-out
+    hover:bg-white/80 hover:border-neutral-300/80
+    focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary/40 
+    focus:shadow-lg focus:shadow-primary/5
+    focus:scale-[1.02] focus:-translate-y-0.5
+  `;
 
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
-      style={{
-        fontFamily: "'Inter', sans-serif",
-      }}
+      style={{ fontFamily: "'Inter', sans-serif" }}
     >
       {/* Animated gradient background */}
       <div 
@@ -48,7 +56,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
       <div 
         className="absolute w-[600px] h-[600px] rounded-full animate-float-blob opacity-30"
         style={{
-          background: 'radial-gradient(circle, rgba(230,0,126,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(230,0,126,0.1) 0%, transparent 70%)',
           top: '-10%',
           right: '-10%',
         }}
@@ -56,7 +64,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
       <div 
         className="absolute w-[500px] h-[500px] rounded-full animate-float-blob opacity-25"
         style={{
-          background: 'radial-gradient(circle, rgba(180,200,255,0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(180,200,255,0.18) 0%, transparent 70%)',
           bottom: '-15%',
           left: '-10%',
           animationDelay: '-7s',
@@ -65,7 +73,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
       <div 
         className="absolute w-[400px] h-[400px] rounded-full animate-float-blob opacity-20"
         style={{
-          background: 'radial-gradient(circle, rgba(200,255,200,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(200,255,200,0.15) 0%, transparent 70%)',
           top: '40%',
           left: '60%',
           animationDelay: '-14s',
@@ -76,46 +84,63 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
       <div 
         className="absolute inset-0"
         style={{
-          background: 'rgba(255,255,255,0.4)',
-          backdropFilter: 'blur(60px)',
+          background: 'rgba(255,255,255,0.5)',
+          backdropFilter: 'blur(80px)',
         }}
       />
 
       <button 
         onClick={onClose}
-        className="absolute top-8 right-8 z-10 text-neutral-400 hover:text-neutral-800 transition-all duration-300 text-sm font-medium tracking-wide"
-        style={{ fontFamily: "'Inter', sans-serif" }}
+        className="absolute top-8 right-8 z-10 text-neutral-400 hover:text-neutral-800 transition-all duration-300 text-sm font-medium tracking-wide hover:scale-110"
       >
-        닫기 ✕
+        ✕
       </button>
       
-      <div className="w-full max-w-2xl px-8 py-12">
-        <div className="text-center mb-12">
+      <div className="relative z-10 w-full max-w-2xl px-8 py-12">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-6">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span className="text-sm font-medium text-primary">Early Access</span>
+          </div>
+          
           <h1 
-            className="text-3xl md:text-5xl font-semibold text-neutral-900 mb-6 leading-tight"
-            style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.02em' }}
+            className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-6 leading-tight"
+            style={{ letterSpacing: '-0.03em' }}
           >
             글로벌 K-Food 인텔리전스에
             <br />
-            <span className="text-primary">먼저 접근하세요</span>
+            <span className="bg-gradient-to-r from-primary to-pink-400 bg-clip-text text-transparent">
+              먼저 접근하세요
+            </span>
           </h1>
-          <p 
-            className="text-base md:text-lg text-neutral-500 max-w-md mx-auto font-light"
-            style={{ fontFamily: "'Inter', sans-serif", lineHeight: 1.7 }}
-          >
+          <p className="text-base md:text-lg text-neutral-500 max-w-lg mx-auto font-light leading-relaxed">
             YOFLÉ는 글로벌 식품 트렌드가 어디서 형성되고 있는지,
             <br className="hidden md:block" />
             그리고 어떻게 대응해야 하는지 알려드립니다.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Feature badges */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-neutral-200/50">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <span className="text-sm text-neutral-600">실시간 트렌드 분석</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 backdrop-blur-sm border border-neutral-200/50">
+            <Globe className="w-4 h-4 text-primary" />
+            <span className="text-sm text-neutral-600">40+ 국가 커버리지</span>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="space-y-2">
               <Label 
                 htmlFor="companyName" 
-                className="text-neutral-600 text-sm font-medium"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  focusedField === 'companyName' ? 'text-primary' : 'text-neutral-500'
+                }`}
               >
                 회사명
               </Label>
@@ -124,16 +149,18 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
                 placeholder="CJ 제일제당"
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 placeholder:text-neutral-400 h-12 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                onFocus={() => setFocusedField('companyName')}
+                onBlur={() => setFocusedField(null)}
+                className={inputBaseClass}
               />
             </div>
             
             <div className="space-y-2">
               <Label 
                 htmlFor="workEmail" 
-                className="text-neutral-600 text-sm font-medium"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  focusedField === 'workEmail' ? 'text-primary' : 'text-neutral-500'
+                }`}
               >
                 업무용 이메일
               </Label>
@@ -143,74 +170,83 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
                 placeholder="name@company.com"
                 value={formData.workEmail}
                 onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
-                className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 placeholder:text-neutral-400 h-12 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                onFocus={() => setFocusedField('workEmail')}
+                onBlur={() => setFocusedField(null)}
+                className={inputBaseClass}
               />
             </div>
             
             <div className="space-y-2">
               <Label 
-                className="text-neutral-600 text-sm font-medium"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  focusedField === 'role' ? 'text-primary' : 'text-neutral-500'
+                }`}
               >
                 직무
               </Label>
-              <Select onValueChange={(value) => setFormData({ ...formData, role: value })}>
+              <Select 
+                onValueChange={(value) => setFormData({ ...formData, role: value })}
+                onOpenChange={(open) => setFocusedField(open ? 'role' : null)}
+              >
                 <SelectTrigger 
-                  className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 h-12 rounded-xl focus:ring-2 focus:ring-primary/20"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
+                  className={`${inputBaseClass} ${focusedField === 'role' ? 'scale-[1.02] -translate-y-0.5 bg-white ring-4 ring-primary/10 border-primary/40 shadow-lg shadow-primary/5' : ''}`}
                 >
                   <SelectValue placeholder="직무를 선택해주세요" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="executive">경영진</SelectItem>
-                  <SelectItem value="marketing">마케팅</SelectItem>
-                  <SelectItem value="product">제품개발</SelectItem>
-                  <SelectItem value="research">연구개발</SelectItem>
-                  <SelectItem value="other">기타</SelectItem>
+                <SelectContent className="rounded-xl border-neutral-200/60 bg-white/95 backdrop-blur-xl">
+                  <SelectItem value="executive" className="rounded-lg">경영진</SelectItem>
+                  <SelectItem value="marketing" className="rounded-lg">마케팅</SelectItem>
+                  <SelectItem value="product" className="rounded-lg">제품개발</SelectItem>
+                  <SelectItem value="research" className="rounded-lg">연구개발</SelectItem>
+                  <SelectItem value="sales" className="rounded-lg">영업</SelectItem>
+                  <SelectItem value="other" className="rounded-lg">기타</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div className="space-y-2">
               <Label 
-                className="text-neutral-600 text-sm font-medium"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                className={`text-sm font-medium transition-colors duration-300 ${
+                  focusedField === 'region' ? 'text-primary' : 'text-neutral-500'
+                }`}
               >
                 관심 지역
               </Label>
-              <Select onValueChange={(value) => setFormData({ ...formData, region: value })}>
+              <Select 
+                onValueChange={(value) => setFormData({ ...formData, region: value })}
+                onOpenChange={(open) => setFocusedField(open ? 'region' : null)}
+              >
                 <SelectTrigger 
-                  className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 h-12 rounded-xl focus:ring-2 focus:ring-primary/20"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
+                  className={`${inputBaseClass} ${focusedField === 'region' ? 'scale-[1.02] -translate-y-0.5 bg-white ring-4 ring-primary/10 border-primary/40 shadow-lg shadow-primary/5' : ''}`}
                 >
                   <SelectValue placeholder="지역을 선택해주세요" />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="asia">아시아</SelectItem>
-                  <SelectItem value="europe">유럽</SelectItem>
-                  <SelectItem value="north-america">북미</SelectItem>
-                  <SelectItem value="south-america">남미</SelectItem>
-                  <SelectItem value="global">글로벌</SelectItem>
+                <SelectContent className="rounded-xl border-neutral-200/60 bg-white/95 backdrop-blur-xl">
+                  <SelectItem value="asia" className="rounded-lg">아시아</SelectItem>
+                  <SelectItem value="europe" className="rounded-lg">유럽</SelectItem>
+                  <SelectItem value="north-america" className="rounded-lg">북미</SelectItem>
+                  <SelectItem value="south-america" className="rounded-lg">남미</SelectItem>
+                  <SelectItem value="middle-east" className="rounded-lg">중동</SelectItem>
+                  <SelectItem value="global" className="rounded-lg">글로벌 전체</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Button 
               type="submit"
-              className="bg-primary hover:bg-primary/90 text-white px-10 h-12 rounded-xl text-base font-medium shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
-              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="relative overflow-hidden bg-gradient-to-r from-primary to-pink-500 hover:from-primary/90 hover:to-pink-500/90 text-white px-12 h-14 rounded-2xl text-base font-semibold shadow-xl shadow-primary/20 hover:shadow-2xl hover:shadow-primary/30 hover:scale-105 hover:-translate-y-1 transition-all duration-500"
             >
-              액세스 신청하기
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <span className="relative z-10 flex items-center">
+                액세스 신청하기
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </span>
             </Button>
             <Button 
               type="button"
               variant="outline"
-              className="border-neutral-300 text-neutral-700 hover:bg-neutral-100 hover:border-neutral-400 px-10 h-12 rounded-xl text-base font-medium backdrop-blur-sm transition-all duration-300"
-              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="border-neutral-200/80 bg-white/50 text-neutral-700 hover:bg-white hover:border-neutral-300 hover:scale-105 px-10 h-14 rounded-2xl text-base font-medium backdrop-blur-sm transition-all duration-500"
             >
               샘플 리포트 보기
             </Button>
@@ -218,13 +254,16 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
         </form>
 
         {/* Trust indicators */}
-        <div className="mt-12 pt-8 border-t border-neutral-200/50">
-          <p 
-            className="text-center text-sm text-neutral-400 font-light"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            CJ 제일제당, 농심, 오뚜기 등 국내 주요 식품 기업이 함께합니다
+        <div className="mt-14 pt-8 border-t border-neutral-200/30">
+          <p className="text-center text-sm text-neutral-400 font-light mb-4">
+            국내 주요 식품 기업이 함께합니다
           </p>
+          <div className="flex justify-center items-center gap-8 opacity-40">
+            <span className="text-lg font-semibold text-neutral-600">CJ</span>
+            <span className="text-lg font-semibold text-neutral-600">농심</span>
+            <span className="text-lg font-semibold text-neutral-600">오뚜기</span>
+            <span className="text-lg font-semibold text-neutral-600">삼양</span>
+          </div>
         </div>
       </div>
     </div>
