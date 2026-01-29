@@ -120,25 +120,70 @@
   }
 }
 
-/* SVG Wave animations */
-@keyframes wave-move {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(-25px); }
-  100% { transform: translateX(0); }
+/* Dynamic wave animations - multiple layers */
+@keyframes wave-1 {
+  0% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-5%) translateY(-8px); }
+  50% { transform: translateX(-10%) translateY(0); }
+  75% { transform: translateX(-5%) translateY(8px); }
+  100% { transform: translateX(0) translateY(0); }
 }
 
-@keyframes wave-move-reverse {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(25px); }
-  100% { transform: translateX(0); }
+@keyframes wave-2 {
+  0% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(8%) translateY(10px); }
+  50% { transform: translateX(15%) translateY(0); }
+  75% { transform: translateX(8%) translateY(-10px); }
+  100% { transform: translateX(0) translateY(0); }
 }
 
-.animate-wave {
-  animation: wave-move 2s ease-in-out infinite;
+@keyframes wave-3 {
+  0% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-12%) translateY(-6px); }
+  50% { transform: translateX(-25%) translateY(0); }
+  75% { transform: translateX(-12%) translateY(6px); }
+  100% { transform: translateX(0) translateY(0); }
 }
 
-.animate-wave-reverse {
-  animation: wave-move-reverse 2.5s ease-in-out infinite;
+@keyframes wave-settle {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-5%) translateY(2px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes foam {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 0.6; transform: scaleY(1.2); }
+}
+
+@keyframes splash {
+  0% { opacity: 1; transform: scaleY(1); }
+  50% { opacity: 0.8; transform: scaleY(1.5); }
+  100% { opacity: 0; transform: scaleY(1); }
+}
+
+.animate-wave-1 {
+  animation: wave-1 3s ease-in-out infinite;
+}
+
+.animate-wave-2 {
+  animation: wave-2 2.5s ease-in-out infinite;
+}
+
+.animate-wave-3 {
+  animation: wave-3 2s ease-in-out infinite;
+}
+
+.animate-wave-settle {
+  animation: wave-settle 4s ease-in-out infinite;
+}
+
+.animate-foam {
+  animation: foam 1.5s ease-in-out infinite;
+}
+
+.animate-splash {
+  animation: splash 1.5s ease-out forwards;
 }
 
 /* Logo styles */
