@@ -40,8 +40,8 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
-      style={{ fontFamily: "'Inter', sans-serif" }}
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto"
+      style={{ fontFamily: "'Inter', sans-serif", paddingTop: '100px' }}
     >
       {/* Animated gradient background */}
       <div 
