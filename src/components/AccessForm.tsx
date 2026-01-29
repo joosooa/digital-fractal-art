@@ -42,51 +42,33 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
     <div 
       data-scrollable="form"
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto"
-      style={{ fontFamily: "'Inter', sans-serif", paddingTop: '100px' }}
+      style={{ fontFamily: "'Inter', sans-serif", paddingTop: '80px' }}
     >
-      {/* Animated gradient background */}
-      <div 
-        className="absolute inset-0 animate-gradient-shift"
-        style={{
-          background: 'linear-gradient(-45deg, #fef7f0, #f5f0ff, #f0f7fe, #fff5f5, #f7fef0)',
-          backgroundSize: '400% 400%',
-        }}
-      />
-      
-      {/* Floating blobs for depth */}
-      <div 
-        className="absolute w-[600px] h-[600px] rounded-full animate-float-blob opacity-30"
-        style={{
-          background: 'radial-gradient(circle, rgba(230,0,126,0.1) 0%, transparent 70%)',
-          top: '-10%',
-          right: '-10%',
-        }}
-      />
-      <div 
-        className="absolute w-[500px] h-[500px] rounded-full animate-float-blob opacity-25"
-        style={{
-          background: 'radial-gradient(circle, rgba(180,200,255,0.18) 0%, transparent 70%)',
-          bottom: '-15%',
-          left: '-10%',
-          animationDelay: '-7s',
-        }}
-      />
-      <div 
-        className="absolute w-[400px] h-[400px] rounded-full animate-float-blob opacity-20"
-        style={{
-          background: 'radial-gradient(circle, rgba(200,255,200,0.15) 0%, transparent 70%)',
-          top: '40%',
-          left: '60%',
-          animationDelay: '-14s',
-        }}
-      />
-
-      {/* Glass overlay */}
+      {/* Clean white background - single unified tone */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'rgba(255,255,255,0.5)',
-          backdropFilter: 'blur(80px)',
+          background: 'linear-gradient(180deg, #fafafa 0%, #ffffff 30%, #ffffff 70%, #fafafa 100%)',
+        }}
+      />
+      
+      {/* Very subtle, almost invisible ambient glow */}
+      <div 
+        className="absolute w-[800px] h-[800px] rounded-full opacity-[0.03]"
+        style={{
+          background: 'radial-gradient(circle, hsl(330, 100%, 50%) 0%, transparent 70%)',
+          top: '-20%',
+          right: '-20%',
+          pointerEvents: 'none',
+        }}
+      />
+      <div 
+        className="absolute w-[600px] h-[600px] rounded-full opacity-[0.02]"
+        style={{
+          background: 'radial-gradient(circle, hsl(220, 100%, 70%) 0%, transparent 70%)',
+          bottom: '-10%',
+          left: '-15%',
+          pointerEvents: 'none',
         }}
       />
 
