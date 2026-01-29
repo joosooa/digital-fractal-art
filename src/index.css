@@ -120,6 +120,27 @@
   }
 }
 
+/* SVG Wave animations */
+@keyframes wave-move {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-25px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes wave-move-reverse {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(25px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-wave {
+  animation: wave-move 2s ease-in-out infinite;
+}
+
+.animate-wave-reverse {
+  animation: wave-move-reverse 2.5s ease-in-out infinite;
+}
+
 /* Logo styles */
 .main-logo {
   font-family: var(--font-display);
