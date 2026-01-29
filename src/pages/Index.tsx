@@ -8,14 +8,29 @@ import AccessForm from '@/components/AccessForm';
 const Index = () => {
   const [fillPercent, setFillPercent] = useState(0);
   const [scrollOffset, setScrollOffset] = useState(0);
+  const [heroComplete, setHeroComplete] = useState(false);
   const isFilledRef = useRef(false);
+  const heroDelayRef = useRef(false);
+
+  useEffect(() => {
+    // When fill reaches 100%, wait a moment before allowing scroll transition
+    if (fillPercent >= 100 && !heroDelayRef.current) {
+      heroDelayRef.current = true;
+      setTimeout(() => {
+        setHeroComplete(true);
+      }, 800); // Show hero tagline for 800ms before allowing transition
+    } else if (fillPercent < 100) {
+      heroDelayRef.current = false;
+      setHeroComplete(false);
+    }
+  }, [fillPercent]);
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       
       if (!isFilledRef.current) {
-        // Phase 1: Fill the logo (scroll down to fill) - slower, requires ~3 wheel scrolls
+        // Phase 1: Fill the logo
         setFillPercent(prev => {
           const newFill = Math.min(100, Math.max(0, prev + e.deltaY * 0.12));
           if (newFill >= 100) {
@@ -23,46 +38,52 @@ const Index = () => {
           }
           return newFill;
         });
-      } else {
-        // Phase 2: Scroll to form section
+      } else if (heroComplete) {
+        // Phase 2: Scroll to form section (only after hero delay)
         setScrollOffset(prev => {
-          const newScroll = Math.min(100, Math.max(0, prev + e.deltaY * 0.2));
-          // If scrolling back up and at top, go back to phase 1
+          const newScroll = Math.min(100, Math.max(0, prev + e.deltaY * 0.15));
           if (newScroll <= 0 && e.deltaY < 0) {
             isFilledRef.current = false;
             setFillPercent(100);
+            setHeroComplete(false);
+            heroDelayRef.current = false;
           }
           return newScroll;
         });
       }
     };
 
-    // Touch support for mobile
+    // Touch support for mobile - improved
     let touchStartY = 0;
+    let lastTouchY = 0;
     
     const handleTouchStart = (e: TouchEvent) => {
       touchStartY = e.touches[0].clientY;
+      lastTouchY = e.touches[0].clientY;
     };
     
     const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault();
-      const deltaY = touchStartY - e.touches[0].clientY;
-      touchStartY = e.touches[0].clientY;
+      const currentY = e.touches[0].clientY;
+      const deltaY = lastTouchY - currentY;
+      lastTouchY = currentY;
       
       if (!isFilledRef.current) {
         setFillPercent(prev => {
-          const newFill = Math.min(100, Math.max(0, prev + deltaY * 0.2));
+          const newFill = Math.min(100, Math.max(0, prev + deltaY * 0.5));
           if (newFill >= 100) {
             isFilledRef.current = true;
           }
           return newFill;
         });
-      } else {
+      } else if (heroComplete) {
         setScrollOffset(prev => {
-          const newScroll = Math.min(100, Math.max(0, prev + deltaY * 0.3));
+          const newScroll = Math.min(100, Math.max(0, prev + deltaY * 0.4));
           if (newScroll <= 0 && deltaY < 0) {
             isFilledRef.current = false;
             setFillPercent(100);
+            setHeroComplete(false);
+            heroDelayRef.current = false;
           }
           return newScroll;
         });
@@ -70,7 +91,7 @@ const Index = () => {
     };
 
     document.addEventListener('wheel', handleWheel, { passive: false });
-    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: true });
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     return () => {
@@ -78,7 +99,7 @@ const Index = () => {
       document.removeEventListener('touchstart', handleTouchStart);
       document.removeEventListener('touchmove', handleTouchMove);
     };
-  }, []);
+  }, [heroComplete]);
 
   const handleBackToHero = () => {
     setScrollOffset(0);

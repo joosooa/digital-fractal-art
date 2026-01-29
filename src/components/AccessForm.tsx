@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ArrowRight, Sparkles, TrendingUp, Globe } from 'lucide-react';
+import { ArrowRight, TrendingUp, Globe } from 'lucide-react';
 
 interface AccessFormProps {
   onClose: () => void;
@@ -96,14 +96,9 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
         ✕
       </button>
       
-      <div className="relative z-10 w-full max-w-2xl px-8 py-12">
+      <div className="relative z-10 w-full max-w-2xl px-8 py-12 pb-32">
         {/* Header */}
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/5 border border-primary/10 mb-6">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium text-primary">Early Access</span>
-          </div>
-          
           <h1 
             className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-6 leading-tight"
             style={{ letterSpacing: '-0.03em' }}
