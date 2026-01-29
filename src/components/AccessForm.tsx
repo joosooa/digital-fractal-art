@@ -41,23 +41,24 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
   return (
     <div 
       data-scrollable="form"
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto"
-      style={{ fontFamily: "'Inter', sans-serif", paddingTop: '80px' }}
+      className="fixed inset-0 z-50 overflow-y-auto"
+      style={{ fontFamily: "'Inter', sans-serif" }}
     >
-      {/* Clean white background - single unified tone */}
+      {/* Full coverage white background - extends beyond viewport */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, #fafafa 0%, #ffffff 30%, #ffffff 70%, #fafafa 100%)',
+          background: '#fafafa',
+          minHeight: '200vh',
         }}
       />
       
-      {/* Very subtle, almost invisible ambient glow */}
+      {/* Very subtle ambient glow */}
       <div 
         className="absolute w-[800px] h-[800px] rounded-full opacity-[0.03]"
         style={{
           background: 'radial-gradient(circle, hsl(330, 100%, 50%) 0%, transparent 70%)',
-          top: '-20%',
+          top: '10%',
           right: '-20%',
           pointerEvents: 'none',
         }}
@@ -66,20 +67,22 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
         className="absolute w-[600px] h-[600px] rounded-full opacity-[0.02]"
         style={{
           background: 'radial-gradient(circle, hsl(220, 100%, 70%) 0%, transparent 70%)',
-          bottom: '-10%',
+          bottom: '20%',
           left: '-15%',
           pointerEvents: 'none',
         }}
       />
-
+      {/* Close button */}
       <button 
         onClick={onClose}
-        className="absolute top-8 right-8 z-10 text-neutral-400 hover:text-neutral-800 transition-all duration-300 text-sm font-medium tracking-wide hover:scale-110"
+        className="fixed top-8 right-8 z-20 text-neutral-400 hover:text-neutral-800 transition-all duration-300 text-sm font-medium tracking-wide hover:scale-110"
       >
         ✕
       </button>
       
-      <div className="relative z-10 w-full max-w-2xl px-8 py-12 pb-48">
+      {/* Content wrapper with proper centering */}
+      <div className="relative min-h-screen flex items-start justify-center pt-20 pb-32">
+        <div className="relative z-10 w-full max-w-2xl px-8 py-12 pb-48">
         {/* Header */}
         <div className="text-center mb-14">
           <h1 
@@ -232,6 +235,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
         </form>
 
         {/* Removed trust indicators per request */}
+        </div>
       </div>
     </div>
   );
