@@ -9,106 +9,77 @@ import AccessForm from '@/components/AccessForm';
 const Index = () => {
   const [fillPercent, setFillPercent] = useState(0);
   const [scrollOffset, setScrollOffset] = useState(0);
-  const isDraggingRef = useRef(false);
-  const startYRef = useRef(0);
   const isFilledRef = useRef(false);
 
   useEffect(() => {
-    const handleMouseDown = (e: MouseEvent) => {
-      isDraggingRef.current = true;
-      startYRef.current = e.clientY;
-    };
-    
-    const handleMouseUp = () => {
-      isDraggingRef.current = false;
-      // Snap to either hero or form section
-      if (scrollOffset > 50) {
-        setScrollOffset(100);
-      } else {
-        setScrollOffset(0);
-        if (fillPercent < 100) {
-          setFillPercent(0);
-          isFilledRef.current = false;
-        }
-      }
-    };
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDraggingRef.current) return;
-      
-      const deltaY = startYRef.current - e.clientY;
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
       
       if (!isFilledRef.current) {
-        // Phase 1: Fill the logo (drag up to fill)
-        const newFill = Math.min(100, Math.max(0, (deltaY / 300) * 100));
-        setFillPercent(newFill);
-        
-        if (newFill >= 100) {
-          isFilledRef.current = true;
-          startYRef.current = e.clientY; // Reset start position for phase 2
-        }
+        // Phase 1: Fill the logo (scroll down to fill)
+        setFillPercent(prev => {
+          const newFill = Math.min(100, Math.max(0, prev + e.deltaY * 0.3));
+          if (newFill >= 100) {
+            isFilledRef.current = true;
+          }
+          return newFill;
+        });
       } else {
-        // Phase 2: Scroll to form section (drag down to reveal)
-        const scrollDelta = (e.clientY - startYRef.current) / window.innerHeight * 100;
-        const newScroll = Math.min(100, Math.max(0, scrollDelta));
-        setScrollOffset(newScroll);
+        // Phase 2: Scroll to form section
+        setScrollOffset(prev => {
+          const newScroll = Math.min(100, Math.max(0, prev + e.deltaY * 0.2));
+          // If scrolling back up and at top, go back to phase 1
+          if (newScroll <= 0 && e.deltaY < 0) {
+            isFilledRef.current = false;
+            setFillPercent(100);
+          }
+          return newScroll;
+        });
       }
     };
 
-    const handleTouchStart = (e: TouchEvent) => {
-      isDraggingRef.current = true;
-      startYRef.current = e.touches[0].clientY;
-    };
+    // Touch support for mobile
+    let touchStartY = 0;
     
-    const handleTouchEnd = () => {
-      isDraggingRef.current = false;
-      if (scrollOffset > 50) {
-        setScrollOffset(100);
-      } else {
-        setScrollOffset(0);
-        if (fillPercent < 100) {
-          setFillPercent(0);
-          isFilledRef.current = false;
-        }
-      }
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
     };
     
     const handleTouchMove = (e: TouchEvent) => {
-      if (!isDraggingRef.current) return;
-      
-      const deltaY = startYRef.current - e.touches[0].clientY;
+      e.preventDefault();
+      const deltaY = touchStartY - e.touches[0].clientY;
+      touchStartY = e.touches[0].clientY;
       
       if (!isFilledRef.current) {
-        const newFill = Math.min(100, Math.max(0, (deltaY / 300) * 100));
-        setFillPercent(newFill);
-        
-        if (newFill >= 100) {
-          isFilledRef.current = true;
-          startYRef.current = e.touches[0].clientY;
-        }
+        setFillPercent(prev => {
+          const newFill = Math.min(100, Math.max(0, prev + deltaY * 0.5));
+          if (newFill >= 100) {
+            isFilledRef.current = true;
+          }
+          return newFill;
+        });
       } else {
-        const scrollDelta = (e.touches[0].clientY - startYRef.current) / window.innerHeight * 100;
-        const newScroll = Math.min(100, Math.max(0, scrollDelta));
-        setScrollOffset(newScroll);
+        setScrollOffset(prev => {
+          const newScroll = Math.min(100, Math.max(0, prev + deltaY * 0.3));
+          if (newScroll <= 0 && deltaY < 0) {
+            isFilledRef.current = false;
+            setFillPercent(100);
+          }
+          return newScroll;
+        });
       }
     };
 
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('touchstart', handleTouchStart);
-    document.addEventListener('touchend', handleTouchEnd);
-    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('wheel', handleWheel, { passive: false });
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
 
     return () => {
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('wheel', handleWheel);
       document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchend', handleTouchEnd);
       document.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [fillPercent, scrollOffset]);
+  }, []);
 
   const handleBackToHero = () => {
     setScrollOffset(0);
@@ -120,19 +91,19 @@ const Index = () => {
     <div className="relative w-full h-full overflow-hidden">
       {/* Hero Section */}
       <div 
-        className="absolute inset-0 bg-background transition-transform duration-500 ease-out"
+        className="absolute inset-0 bg-background transition-transform duration-300 ease-out"
         style={{ transform: `translateY(-${scrollOffset}%)` }}
       >
         <DataStream />
         <Scanline />
         <Navigation />
         <Logo isInverted={false} fillPercent={fillPercent} />
-        <Instruction text={fillPercent >= 100 ? "DRAG DOWN TO CONTINUE" : "DRAG UP TO DECODE"} />
+        <Instruction text={fillPercent >= 100 ? "SCROLL DOWN TO CONTINUE" : "SCROLL TO DECODE"} />
       </div>
 
       {/* Form Section */}
       <div 
-        className="absolute inset-0 transition-transform duration-500 ease-out"
+        className="absolute inset-0 transition-transform duration-300 ease-out"
         style={{ transform: `translateY(${100 - scrollOffset}%)` }}
       >
         <AccessForm onClose={handleBackToHero} />
