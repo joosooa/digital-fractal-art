@@ -1,12 +1,41 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from 'react';
+import DataStream from '@/components/DataStream';
+import ParticleCanvas from '@/components/ParticleCanvas';
+import Navigation from '@/components/Navigation';
+import Logo from '@/components/Logo';
+import Instruction from '@/components/Instruction';
+import Scanline from '@/components/Scanline';
 
 const Index = () => {
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    const handleMouseDown = () => setIsDragging(true);
+    const handleMouseUp = () => setIsDragging(false);
+    const handleTouchStart = () => setIsDragging(true);
+    const handleTouchEnd = () => setIsDragging(false);
+
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('touchstart', handleTouchStart);
+    document.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="relative w-full h-full bg-background overflow-hidden">
+      <DataStream />
+      <Scanline />
+      <ParticleCanvas isDragging={isDragging} />
+      <Navigation />
+      <Logo isInverted={isDragging} />
+      <Instruction />
     </div>
   );
 };
