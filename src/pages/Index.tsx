@@ -12,6 +12,11 @@ const Index = () => {
   const isFilledRef = useRef(false);
   const heroDelayRef = useRef(false);
 
+  const isWithinScrollableForm = (target: EventTarget | null) => {
+    if (!(target instanceof Element)) return false;
+    return Boolean(target.closest('[data-scrollable="form"]'));
+  };
+
   useEffect(() => {
     // When fill reaches 100%, wait a moment before allowing scroll transition
     if (fillPercent >= 100 && !heroDelayRef.current) {
@@ -27,6 +32,8 @@ const Index = () => {
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
+      // Allow native scrolling inside the form section
+      if (isWithinScrollableForm(e.target)) return;
       e.preventDefault();
       
       if (!isFilledRef.current) {
@@ -63,6 +70,8 @@ const Index = () => {
     };
     
     const handleTouchMove = (e: TouchEvent) => {
+      // Allow native scrolling inside the form section
+      if (isWithinScrollableForm(e.target)) return;
       e.preventDefault();
       const currentY = e.touches[0].clientY;
       const deltaY = lastTouchY - currentY;
