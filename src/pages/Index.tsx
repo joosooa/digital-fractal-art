@@ -160,6 +160,20 @@ const Index = () => {
         }}
       />
 
+      {/* Form Section Background - covers everything including above */}
+      <div 
+        className="fixed transition-opacity duration-1000"
+        style={{ 
+          top: '-100vh',
+          left: 0,
+          right: 0,
+          bottom: '-100vh',
+          background: '#fafafa',
+          opacity: scrollOffset < 50 ? 0 : Math.min(1, (scrollOffset - 50) / 20),
+          zIndex: 18
+        }}
+      />
+
       {/* Form Section */}
       <div 
         className="fixed inset-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]"
