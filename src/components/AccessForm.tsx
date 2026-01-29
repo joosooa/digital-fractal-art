@@ -30,16 +30,60 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, rgba(245,243,240,0.97) 0%, rgba(255,255,255,0.95) 100%)',
-        backdropFilter: 'blur(20px)',
         fontFamily: "'Inter', sans-serif",
       }}
     >
+      {/* Animated gradient background */}
+      <div 
+        className="absolute inset-0 animate-gradient-shift"
+        style={{
+          background: 'linear-gradient(-45deg, #fef7f0, #f5f0ff, #f0f7fe, #fff5f5, #f7fef0)',
+          backgroundSize: '400% 400%',
+        }}
+      />
+      
+      {/* Floating blobs for depth */}
+      <div 
+        className="absolute w-[600px] h-[600px] rounded-full animate-float-blob opacity-30"
+        style={{
+          background: 'radial-gradient(circle, rgba(230,0,126,0.08) 0%, transparent 70%)',
+          top: '-10%',
+          right: '-10%',
+        }}
+      />
+      <div 
+        className="absolute w-[500px] h-[500px] rounded-full animate-float-blob opacity-25"
+        style={{
+          background: 'radial-gradient(circle, rgba(180,200,255,0.15) 0%, transparent 70%)',
+          bottom: '-15%',
+          left: '-10%',
+          animationDelay: '-7s',
+        }}
+      />
+      <div 
+        className="absolute w-[400px] h-[400px] rounded-full animate-float-blob opacity-20"
+        style={{
+          background: 'radial-gradient(circle, rgba(200,255,200,0.12) 0%, transparent 70%)',
+          top: '40%',
+          left: '60%',
+          animationDelay: '-14s',
+        }}
+      />
+
+      {/* Glass overlay */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'rgba(255,255,255,0.4)',
+          backdropFilter: 'blur(60px)',
+        }}
+      />
+
       <button 
         onClick={onClose}
-        className="absolute top-8 right-8 text-neutral-400 hover:text-neutral-800 transition-all duration-300 text-sm font-medium tracking-wide"
+        className="absolute top-8 right-8 z-10 text-neutral-400 hover:text-neutral-800 transition-all duration-300 text-sm font-medium tracking-wide"
         style={{ fontFamily: "'Inter', sans-serif" }}
       >
         닫기 ✕

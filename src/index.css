@@ -152,6 +152,40 @@
   100% { opacity: 0; }
 }
 
+/* Subtle gradient animation for form background */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float-blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.animate-float-blob {
+  animation: float-blob 20s ease-in-out infinite;
+}
+
 .animate-wave-1 {
   animation: wave-1 4s ease-in-out infinite;
 }
