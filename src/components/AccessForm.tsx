@@ -249,18 +249,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
           </div>
         </form>
 
-        {/* Trust indicators */}
-        <div className="mt-14 pt-8 border-t border-neutral-200/30">
-          <p className="text-center text-sm text-neutral-400 font-light mb-4">
-            국내 주요 식품 기업이 함께합니다
-          </p>
-          <div className="flex justify-center items-center gap-8 opacity-40">
-            <span className="text-lg font-semibold text-neutral-600">CJ</span>
-            <span className="text-lg font-semibold text-neutral-600">농심</span>
-            <span className="text-lg font-semibold text-neutral-600">오뚜기</span>
-            <span className="text-lg font-semibold text-neutral-600">삼양</span>
-          </div>
-        </div>
+        {/* Removed trust indicators per request */}
       </div>
     </div>
   );
