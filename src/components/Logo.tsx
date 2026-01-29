@@ -143,6 +143,19 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
           >
             YOFLÉ
           </h1>
+          
+          {/* Hero tagline - appears after fill complete */}
+          <p 
+            className="mt-8 text-lg md:text-2xl font-mono tracking-wide transition-all duration-700"
+            style={{
+              color: 'white',
+              mixBlendMode: 'difference',
+              opacity: isComplete ? 1 : 0,
+              transform: isComplete ? 'translateY(0)' : 'translateY(20px)',
+            }}
+          >
+            세상의 식품 트렌드를 한 스푼 먼저 맛보다
+          </p>
         </div>
       </div>
     </>
