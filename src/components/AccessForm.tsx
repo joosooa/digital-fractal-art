@@ -26,46 +26,72 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Handle form submission
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#f5f3f0] animate-fade-in">
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{
+        background: 'linear-gradient(180deg, rgba(245,243,240,0.97) 0%, rgba(255,255,255,0.95) 100%)',
+        backdropFilter: 'blur(20px)',
+        fontFamily: "'Inter', sans-serif",
+      }}
+    >
       <button 
         onClick={onClose}
-        className="absolute top-8 right-8 text-muted-foreground hover:text-foreground transition-colors text-sm tracking-widest"
+        className="absolute top-8 right-8 text-neutral-400 hover:text-neutral-800 transition-all duration-300 text-sm font-medium tracking-wide"
+        style={{ fontFamily: "'Inter', sans-serif" }}
       >
-        CLOSE ✕
+        닫기 ✕
       </button>
       
       <div className="w-full max-w-2xl px-8 py-12">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-6 leading-tight">
-            Get early access to global K-Food intelligence
+        <div className="text-center mb-12">
+          <h1 
+            className="text-3xl md:text-5xl font-semibold text-neutral-900 mb-6 leading-tight"
+            style={{ fontFamily: "'Inter', sans-serif", letterSpacing: '-0.02em' }}
+          >
+            글로벌 K-Food 인텔리전스에
+            <br />
+            <span className="text-primary">먼저 접근하세요</span>
           </h1>
-          <p className="text-lg text-[#666] max-w-xl mx-auto">
-            YOFLÉ helps brands understand where global food trends are forming — and how to act on them.
+          <p 
+            className="text-base md:text-lg text-neutral-500 max-w-md mx-auto font-light"
+            style={{ fontFamily: "'Inter', sans-serif", lineHeight: 1.7 }}
+          >
+            YOFLÉ는 글로벌 식품 트렌드가 어디서 형성되고 있는지,
+            <br className="hidden md:block" />
+            그리고 어떻게 대응해야 하는지 알려드립니다.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="space-y-2">
-              <Label htmlFor="companyName" className="text-[#1a1a1a] text-sm">
-                Company name
+              <Label 
+                htmlFor="companyName" 
+                className="text-neutral-600 text-sm font-medium"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                회사명
               </Label>
               <Input
                 id="companyName"
-                placeholder="CJ CheilJedang"
+                placeholder="CJ 제일제당"
                 value={formData.companyName}
                 onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                className="bg-white border-[#e0e0e0] text-[#1a1a1a] placeholder:text-[#999] h-12 rounded-lg"
+                className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 placeholder:text-neutral-400 h-12 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all"
+                style={{ fontFamily: "'Inter', sans-serif" }}
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="workEmail" className="text-[#1a1a1a] text-sm">
-                Work email
+              <Label 
+                htmlFor="workEmail" 
+                className="text-neutral-600 text-sm font-medium"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                업무용 이메일
               </Label>
               <Input
                 id="workEmail"
@@ -73,60 +99,89 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
                 placeholder="name@company.com"
                 value={formData.workEmail}
                 onChange={(e) => setFormData({ ...formData, workEmail: e.target.value })}
-                className="bg-white border-[#e0e0e0] text-[#1a1a1a] placeholder:text-[#999] h-12 rounded-lg"
+                className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 placeholder:text-neutral-400 h-12 rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary/50 transition-all"
+                style={{ fontFamily: "'Inter', sans-serif" }}
               />
             </div>
             
             <div className="space-y-2">
-              <Label className="text-[#1a1a1a] text-sm">Role</Label>
+              <Label 
+                className="text-neutral-600 text-sm font-medium"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                직무
+              </Label>
               <Select onValueChange={(value) => setFormData({ ...formData, role: value })}>
-                <SelectTrigger className="bg-white border-[#e0e0e0] text-[#1a1a1a] h-12 rounded-lg">
-                  <SelectValue placeholder="Select your role" />
+                <SelectTrigger 
+                  className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 h-12 rounded-xl focus:ring-2 focus:ring-primary/20"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  <SelectValue placeholder="직무를 선택해주세요" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="executive">Executive</SelectItem>
-                  <SelectItem value="marketing">Marketing</SelectItem>
-                  <SelectItem value="product">Product</SelectItem>
-                  <SelectItem value="research">Research</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="executive">경영진</SelectItem>
+                  <SelectItem value="marketing">마케팅</SelectItem>
+                  <SelectItem value="product">제품개발</SelectItem>
+                  <SelectItem value="research">연구개발</SelectItem>
+                  <SelectItem value="other">기타</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div className="space-y-2">
-              <Label className="text-[#1a1a1a] text-sm">Region of interest</Label>
+              <Label 
+                className="text-neutral-600 text-sm font-medium"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                관심 지역
+              </Label>
               <Select onValueChange={(value) => setFormData({ ...formData, region: value })}>
-                <SelectTrigger className="bg-white border-[#e0e0e0] text-[#1a1a1a] h-12 rounded-lg">
-                  <SelectValue placeholder="Select region" />
+                <SelectTrigger 
+                  className="bg-white/70 backdrop-blur-sm border-neutral-200/80 text-neutral-900 h-12 rounded-xl focus:ring-2 focus:ring-primary/20"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  <SelectValue placeholder="지역을 선택해주세요" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="asia">Asia</SelectItem>
-                  <SelectItem value="europe">Europe</SelectItem>
-                  <SelectItem value="north-america">North America</SelectItem>
-                  <SelectItem value="south-america">South America</SelectItem>
-                  <SelectItem value="global">Global</SelectItem>
+                  <SelectItem value="asia">아시아</SelectItem>
+                  <SelectItem value="europe">유럽</SelectItem>
+                  <SelectItem value="north-america">북미</SelectItem>
+                  <SelectItem value="south-america">남미</SelectItem>
+                  <SelectItem value="global">글로벌</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
             <Button 
               type="submit"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 h-12 rounded-lg text-base font-medium"
+              className="bg-primary hover:bg-primary/90 text-white px-10 h-12 rounded-xl text-base font-medium shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+              style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              Request access
+              액세스 신청하기
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <Button 
               type="button"
               variant="outline"
-              className="border-[#1a1a1a] text-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-white px-8 h-12 rounded-lg text-base font-medium"
+              className="border-neutral-300 text-neutral-700 hover:bg-neutral-100 hover:border-neutral-400 px-10 h-12 rounded-xl text-base font-medium backdrop-blur-sm transition-all duration-300"
+              style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              See sample report
+              샘플 리포트 보기
             </Button>
           </div>
         </form>
+
+        {/* Trust indicators */}
+        <div className="mt-12 pt-8 border-t border-neutral-200/50">
+          <p 
+            className="text-center text-sm text-neutral-400 font-light"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            CJ 제일제당, 농심, 오뚜기 등 국내 주요 식품 기업이 함께합니다
+          </p>
+        </div>
       </div>
     </div>
   );
