@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
 
 @layer base {
   :root {
@@ -17,7 +17,6 @@
     --popover-foreground: 0 0% 100%;
 
     --primary: 330 100% 45%;
-    --brand-pink: #E4007C;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 75 100% 62%;
@@ -45,7 +44,7 @@
 
     /* Font families */
     --font-mono: 'Courier Prime', monospace;
-    --font-display: 'Montserrat Alternates', sans-serif;
+    --font-display: 'Montserrat', sans-serif;
   }
 
   .dark {
@@ -112,13 +111,13 @@
 /* Logo styles */
 .main-logo {
   font-family: var(--font-display);
-  font-style: normal;
-  font-weight: 600;
-  font-size: 96px;
-  line-height: 117px;
-  text-align: center;
-  color: #E4007C;
+  font-size: 15vw;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  color: white;
   position: relative;
+  mix-blend-mode: difference;
 }
 
 .main-logo::before,
@@ -134,7 +133,7 @@
 
 .main-logo:hover::before {
   animation: glitch-anim 0.3s infinite;
-  color: hsl(var(--secondary));
+  color: hsl(var(--primary));
   z-index: -1;
 }
 
