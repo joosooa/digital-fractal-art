@@ -3,7 +3,6 @@ import DataStream from '@/components/DataStream';
 import Navigation from '@/components/Navigation';
 import Logo from '@/components/Logo';
 import Instruction from '@/components/Instruction';
-import Scanline from '@/components/Scanline';
 import AccessForm from '@/components/AccessForm';
 
 const Index = () => {
@@ -93,23 +92,22 @@ const Index = () => {
       <div 
         className="fixed inset-0 bg-background transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ 
-          transform: `translateY(-${scrollOffset * 1.2}%)`,
-          opacity: scrollOffset > 30 ? 1 - (scrollOffset - 30) / 40 : 1
+          transform: `translateY(-${scrollOffset * 0.8}%)`,
+          opacity: scrollOffset > 40 ? 1 - (scrollOffset - 40) / 40 : 1
         }}
       >
         <DataStream />
-        <Scanline />
         <Navigation />
         <Logo isInverted={false} fillPercent={fillPercent} />
         <Instruction text={fillPercent >= 100 ? "SCROLL DOWN TO CONTINUE" : "SCROLL TO DECODE"} />
       </div>
 
-      {/* Gradient Transition Zone - Extended */}
+      {/* Gradient Transition Zone - Extended & Longer */}
       <div 
         className="fixed inset-0 pointer-events-none transition-opacity duration-1000"
         style={{ 
-          opacity: scrollOffset > 10 && scrollOffset < 90 
-            ? Math.min(1, (scrollOffset - 10) / 20) * (scrollOffset < 70 ? 1 : 1 - (scrollOffset - 70) / 20)
+          opacity: scrollOffset > 15 && scrollOffset < 95 
+            ? Math.min(1, (scrollOffset - 15) / 25) * (scrollOffset < 80 ? 1 : 1 - (scrollOffset - 80) / 15)
             : 0,
           background: `linear-gradient(
             180deg,
@@ -131,8 +129,8 @@ const Index = () => {
       <div 
         className="fixed inset-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ 
-          transform: `translateY(${Math.max(0, 100 - scrollOffset * 1.1)}%)`,
-          opacity: scrollOffset < 50 ? 0 : Math.min(1, (scrollOffset - 50) / 25),
+          transform: `translateY(${Math.max(0, 100 - scrollOffset * 0.9)}%)`,
+          opacity: scrollOffset < 60 ? 0 : Math.min(1, (scrollOffset - 60) / 20),
           zIndex: 20
         }}
       >
