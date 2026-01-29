@@ -16,9 +16,9 @@ const Index = () => {
       e.preventDefault();
       
       if (!isFilledRef.current) {
-        // Phase 1: Fill the logo (scroll down to fill)
+        // Phase 1: Fill the logo (scroll down to fill) - slower, requires ~3 wheel scrolls
         setFillPercent(prev => {
-          const newFill = Math.min(100, Math.max(0, prev + e.deltaY * 0.3));
+          const newFill = Math.min(100, Math.max(0, prev + e.deltaY * 0.12));
           if (newFill >= 100) {
             isFilledRef.current = true;
           }
@@ -52,7 +52,7 @@ const Index = () => {
       
       if (!isFilledRef.current) {
         setFillPercent(prev => {
-          const newFill = Math.min(100, Math.max(0, prev + deltaY * 0.5));
+          const newFill = Math.min(100, Math.max(0, prev + deltaY * 0.2));
           if (newFill >= 100) {
             isFilledRef.current = true;
           }
