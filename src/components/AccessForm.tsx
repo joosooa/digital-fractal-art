@@ -40,6 +40,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
 
   return (
     <div 
+      data-scrollable="form"
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto"
       style={{ fontFamily: "'Inter', sans-serif", paddingTop: '100px' }}
     >
@@ -96,7 +97,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
         ✕
       </button>
       
-      <div className="relative z-10 w-full max-w-2xl px-8 py-12 pb-32">
+      <div className="relative z-10 w-full max-w-2xl px-8 py-12 pb-48">
         {/* Header */}
         <div className="text-center mb-14">
           <h1 
