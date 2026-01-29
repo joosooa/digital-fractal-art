@@ -13,7 +13,7 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
     if (fillPercent >= 100 && !isComplete) {
       setIsComplete(true);
       setShowSplash(true);
-      setTimeout(() => setShowSplash(false), 1500);
+      setTimeout(() => setShowSplash(false), 1200);
     } else if (fillPercent < 100) {
       setIsComplete(false);
     }
@@ -24,114 +24,117 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
 
   return (
     <>
-      {/* Full screen magenta water fill */}
+      {/* Full screen magenta water fill - refined gradient */}
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'hsl(330 100% 45%)',
+          background: 'linear-gradient(180deg, hsl(330 100% 42%) 0%, hsl(330 100% 48%) 100%)',
           clipPath: `inset(${100 - fillPercent}% 0 0 0)`,
-          transition: 'clip-path 0.25s cubic-bezier(0.33, 1, 0.68, 1)',
+          transition: 'clip-path 0.3s cubic-bezier(0.33, 1, 0.68, 1)',
           zIndex: 5
         }}
       />
 
-      {/* Wave layers - positioned at the water line */}
+      {/* Subtle gradient overlay for depth */}
+      {fillPercent > 0 && (
+        <div 
+          className="fixed inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 100%)',
+            clipPath: `inset(${100 - fillPercent}% 0 0 0)`,
+            transition: 'clip-path 0.3s cubic-bezier(0.33, 1, 0.68, 1)',
+            zIndex: 5
+          }}
+        />
+      )}
+
+      {/* Wave layers - refined and smoother */}
       {fillPercent > 0 && fillPercent < 100 && (
         <div 
           className="fixed left-0 right-0 pointer-events-none overflow-visible"
           style={{ 
             bottom: waveBottom,
-            height: '150px',
+            height: '100px',
             zIndex: 6,
-            transition: 'bottom 0.25s cubic-bezier(0.33, 1, 0.68, 1)'
+            transition: 'bottom 0.3s cubic-bezier(0.33, 1, 0.68, 1)'
           }}
         >
-          {/* Wave layer 1 - Back wave (darker, largest) */}
+          {/* Wave layer 1 - Back wave */}
           <svg 
             className="absolute w-[200%] left-[-50%] animate-wave-1"
-            style={{ bottom: '-20px', height: '120px' }}
-            viewBox="0 0 1200 120" 
+            style={{ bottom: '-15px', height: '80px', opacity: 0.6 }}
+            viewBox="0 0 1200 80" 
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,60 C100,20 200,100 300,60 C400,20 500,100 600,60 C700,20 800,100 900,60 C1000,20 1100,100 1200,60 L1200,120 L0,120 Z"
-              fill="hsl(330 100% 35%)"
+              d="M0,40 C150,20 300,60 450,40 C600,20 750,60 900,40 C1050,20 1200,60 1200,40 L1200,80 L0,80 Z"
+              fill="hsl(330 100% 38%)"
             />
           </svg>
           
           {/* Wave layer 2 - Middle wave */}
           <svg 
             className="absolute w-[200%] left-[-25%] animate-wave-2"
-            style={{ bottom: '-10px', height: '100px' }}
-            viewBox="0 0 1200 100" 
+            style={{ bottom: '-8px', height: '70px', opacity: 0.8 }}
+            viewBox="0 0 1200 70" 
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,50 C150,90 250,10 400,50 C550,90 650,10 800,50 C950,90 1050,10 1200,50 L1200,100 L0,100 Z"
+              d="M0,35 C200,55 400,15 600,35 C800,55 1000,15 1200,35 L1200,70 L0,70 Z"
               fill="hsl(330 100% 45%)"
             />
           </svg>
           
-          {/* Wave layer 3 - Front wave (lighter/brighter) */}
+          {/* Wave layer 3 - Front wave */}
           <svg 
             className="absolute w-[200%] left-0 animate-wave-3"
-            style={{ bottom: '0px', height: '80px' }}
-            viewBox="0 0 1200 80" 
+            style={{ bottom: '0px', height: '60px' }}
+            viewBox="0 0 1200 60" 
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,40 C120,70 180,10 300,40 C420,70 480,10 600,40 C720,70 780,10 900,40 C1020,70 1080,10 1200,40 L1200,80 L0,80 Z"
-              fill="hsl(330 100% 55%)"
+              d="M0,30 C150,45 300,15 450,30 C600,45 750,15 900,30 C1050,45 1200,15 1200,30 L1200,60 L0,60 Z"
+              fill="hsl(330 100% 52%)"
             />
           </svg>
-
-          {/* Foam/highlight at wave crest */}
-          <div 
-            className="absolute left-0 right-0 h-4 animate-foam"
-            style={{ 
-              bottom: '60px',
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.5) 80%, transparent 100%)',
-              filter: 'blur(3px)'
-            }}
-          />
         </div>
       )}
 
-      {/* Completion splash effect */}
+      {/* Completion splash effect - refined */}
       {showSplash && (
         <div 
           className="fixed inset-0 pointer-events-none animate-splash"
           style={{ zIndex: 7 }}
         >
-          <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-white/40 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white/20 to-transparent" />
         </div>
       )}
 
-      {/* Settled waves when complete */}
+      {/* Settled waves when complete - minimal */}
       {isComplete && !showSplash && (
         <div 
           className="fixed top-0 left-0 right-0 overflow-hidden pointer-events-none"
-          style={{ height: '50px', zIndex: 6 }}
+          style={{ height: '30px', zIndex: 6 }}
         >
           <svg 
             className="absolute w-[200%] left-[-25%] animate-wave-settle"
-            style={{ top: '20px', height: '35px' }}
-            viewBox="0 0 1200 35" 
+            style={{ top: '15px', height: '20px' }}
+            viewBox="0 0 1200 20" 
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,18 C200,22 400,14 600,18 C800,22 1000,14 1200,18 L1200,35 L0,35 Z"
-              fill="hsl(330 100% 50%)"
+              d="M0,10 C300,14 600,6 900,10 C1200,14 1200,10 1200,10 L1200,20 L0,20 Z"
+              fill="hsl(330 100% 48%)"
             />
           </svg>
         </div>
       )}
 
-      {/* Logo text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center pointer-events-none">
-        <div className="relative">
+      {/* Logo and tagline container */}
+      <div className="fixed inset-0 flex items-center justify-center z-10 pointer-events-none">
+        <div className="text-center">
           <h1 
-            className="font-display text-[18vw] leading-[0.9] font-black tracking-[-0.02em]"
+            className="font-display text-[18vw] leading-[0.85] font-black tracking-[-0.02em]"
             style={{ 
               fontFamily: "'Montserrat', sans-serif",
               fontWeight: 900,
@@ -144,18 +147,27 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
             YOFLÉ
           </h1>
           
-          {/* Hero tagline - appears after fill complete */}
-          <p 
-            className="mt-8 text-lg md:text-2xl font-mono tracking-wide transition-all duration-700"
+          {/* Hero tagline - refined typography */}
+          <div 
+            className="mt-6 overflow-hidden"
             style={{
-              color: 'white',
-              mixBlendMode: 'difference',
               opacity: isComplete ? 1 : 0,
-              transform: isComplete ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'opacity 0.8s ease-out',
             }}
           >
-            세상의 식품 트렌드를 한 스푼 먼저 맛보다
-          </p>
+            <p 
+              className="text-sm md:text-base tracking-[0.3em] uppercase"
+              style={{
+                color: 'white',
+                mixBlendMode: 'difference',
+                fontFamily: "'Courier Prime', monospace",
+                fontWeight: 400,
+                letterSpacing: '0.25em',
+              }}
+            >
+              세상의 식품 트렌드를 한 스푼 먼저 맛보다
+            </p>
+          </div>
         </div>
       </div>
     </>
