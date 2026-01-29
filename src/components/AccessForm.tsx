@@ -72,6 +72,16 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
           pointerEvents: 'none',
         }}
       />
+      {/* Desktop only - Top label */}
+      <div className="hidden md:block fixed top-8 left-1/2 -translate-x-1/2 z-20">
+        <span 
+          className="text-xs tracking-[0.3em] uppercase text-neutral-400"
+          style={{ fontFamily: "'Courier Prime', monospace" }}
+        >
+          FOOD AI DASHBOARD
+        </span>
+      </div>
+
       {/* Close button */}
       <button 
         onClick={onClose}
@@ -81,7 +91,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
       </button>
       
       {/* Content wrapper with proper centering */}
-      <div className="relative min-h-screen flex items-start justify-center pt-20 pb-32">
+      <div className="relative min-h-screen flex items-start justify-center pt-32 md:pt-40 pb-32">
         <div className="relative z-10 w-full max-w-2xl px-8 py-12 pb-48">
         {/* Header */}
         <div className="text-center mb-14">
