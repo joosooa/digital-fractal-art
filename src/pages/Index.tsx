@@ -11,11 +11,16 @@ const Index = () => {
   const [heroComplete, setHeroComplete] = useState(false);
   const isFilledRef = useRef(false);
   const heroDelayRef = useRef(false);
+  const scrollOffsetRef = useRef(0);
 
   const isWithinScrollableForm = (target: EventTarget | null) => {
     if (!(target instanceof Element)) return false;
     return Boolean(target.closest('[data-scrollable="form"]'));
   };
+
+  useEffect(() => {
+    scrollOffsetRef.current = scrollOffset;
+  }, [scrollOffset]);
 
   useEffect(() => {
     // When fill reaches 100%, wait a moment before allowing scroll transition
@@ -32,8 +37,8 @@ const Index = () => {
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      // Allow native scrolling inside the form section
-      if (isWithinScrollableForm(e.target)) return;
+      // Allow native scrolling inside the form section ONLY after transition completes
+      if (isWithinScrollableForm(e.target) && scrollOffsetRef.current >= 98) return;
       e.preventDefault();
       
       if (!isFilledRef.current) {
@@ -70,8 +75,8 @@ const Index = () => {
     };
     
     const handleTouchMove = (e: TouchEvent) => {
-      // Allow native scrolling inside the form section
-      if (isWithinScrollableForm(e.target)) return;
+      // Allow native scrolling inside the form section ONLY after transition completes
+      if (isWithinScrollableForm(e.target) && scrollOffsetRef.current >= 98) return;
       e.preventDefault();
       const currentY = e.touches[0].clientY;
       const deltaY = lastTouchY - currentY;
