@@ -30,7 +30,7 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
         style={{
           background: 'hsl(330 100% 45%)',
           clipPath: `inset(${100 - fillPercent}% 0 0 0)`,
-          transition: 'clip-path 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+          transition: 'clip-path 0.25s cubic-bezier(0.33, 1, 0.68, 1)',
           zIndex: 5
         }}
       />
@@ -41,20 +41,20 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
           className="fixed left-0 right-0 pointer-events-none overflow-visible"
           style={{ 
             bottom: waveBottom,
-            height: '80px',
+            height: '150px',
             zIndex: 6,
-            transition: 'bottom 0.15s cubic-bezier(0.4, 0, 0.2, 1)'
+            transition: 'bottom 0.25s cubic-bezier(0.33, 1, 0.68, 1)'
           }}
         >
-          {/* Wave layer 1 - Back wave (darker) */}
+          {/* Wave layer 1 - Back wave (darker, largest) */}
           <svg 
             className="absolute w-[200%] left-[-50%] animate-wave-1"
-            style={{ bottom: '-10px', height: '60px' }}
-            viewBox="0 0 1200 60" 
+            style={{ bottom: '-20px', height: '120px' }}
+            viewBox="0 0 1200 120" 
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,30 C100,10 200,50 300,30 C400,10 500,50 600,30 C700,10 800,50 900,30 C1000,10 1100,50 1200,30 L1200,60 L0,60 Z"
+              d="M0,60 C100,20 200,100 300,60 C400,20 500,100 600,60 C700,20 800,100 900,60 C1000,20 1100,100 1200,60 L1200,120 L0,120 Z"
               fill="hsl(330 100% 35%)"
             />
           </svg>
@@ -62,12 +62,12 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
           {/* Wave layer 2 - Middle wave */}
           <svg 
             className="absolute w-[200%] left-[-25%] animate-wave-2"
-            style={{ bottom: '-5px', height: '50px' }}
-            viewBox="0 0 1200 50" 
+            style={{ bottom: '-10px', height: '100px' }}
+            viewBox="0 0 1200 100" 
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,25 C150,45 250,5 400,25 C550,45 650,5 800,25 C950,45 1050,5 1200,25 L1200,50 L0,50 Z"
+              d="M0,50 C150,90 250,10 400,50 C550,90 650,10 800,50 C950,90 1050,10 1200,50 L1200,100 L0,100 Z"
               fill="hsl(330 100% 45%)"
             />
           </svg>
@@ -75,23 +75,23 @@ const Logo = ({ isInverted, fillPercent = 0 }: LogoProps) => {
           {/* Wave layer 3 - Front wave (lighter/brighter) */}
           <svg 
             className="absolute w-[200%] left-0 animate-wave-3"
-            style={{ bottom: '0px', height: '40px' }}
-            viewBox="0 0 1200 40" 
+            style={{ bottom: '0px', height: '80px' }}
+            viewBox="0 0 1200 80" 
             preserveAspectRatio="none"
           >
             <path 
-              d="M0,20 C120,35 180,5 300,20 C420,35 480,5 600,20 C720,35 780,5 900,20 C1020,35 1080,5 1200,20 L1200,40 L0,40 Z"
+              d="M0,40 C120,70 180,10 300,40 C420,70 480,10 600,40 C720,70 780,10 900,40 C1020,70 1080,10 1200,40 L1200,80 L0,80 Z"
               fill="hsl(330 100% 55%)"
             />
           </svg>
 
           {/* Foam/highlight at wave crest */}
           <div 
-            className="absolute left-0 right-0 h-2 animate-foam"
+            className="absolute left-0 right-0 h-4 animate-foam"
             style={{ 
-              bottom: '30px',
-              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.4) 75%, transparent 100%)',
-              filter: 'blur(2px)'
+              bottom: '60px',
+              background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 20%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.5) 80%, transparent 100%)',
+              filter: 'blur(3px)'
             }}
           />
         </div>

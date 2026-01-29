@@ -120,28 +120,28 @@
   }
 }
 
-/* Dynamic wave animations - multiple layers */
+/* Dynamic wave animations - multiple layers with larger movement */
 @keyframes wave-1 {
   0% { transform: translateX(0) translateY(0); }
-  25% { transform: translateX(-5%) translateY(-8px); }
-  50% { transform: translateX(-10%) translateY(0); }
-  75% { transform: translateX(-5%) translateY(8px); }
+  25% { transform: translateX(-8%) translateY(-15px); }
+  50% { transform: translateX(-15%) translateY(0); }
+  75% { transform: translateX(-8%) translateY(15px); }
   100% { transform: translateX(0) translateY(0); }
 }
 
 @keyframes wave-2 {
   0% { transform: translateX(0) translateY(0); }
-  25% { transform: translateX(8%) translateY(10px); }
-  50% { transform: translateX(15%) translateY(0); }
-  75% { transform: translateX(8%) translateY(-10px); }
+  25% { transform: translateX(10%) translateY(18px); }
+  50% { transform: translateX(20%) translateY(0); }
+  75% { transform: translateX(10%) translateY(-18px); }
   100% { transform: translateX(0) translateY(0); }
 }
 
 @keyframes wave-3 {
   0% { transform: translateX(0) translateY(0); }
-  25% { transform: translateX(-12%) translateY(-6px); }
-  50% { transform: translateX(-25%) translateY(0); }
-  75% { transform: translateX(-12%) translateY(6px); }
+  25% { transform: translateX(-15%) translateY(-12px); }
+  50% { transform: translateX(-30%) translateY(0); }
+  75% { transform: translateX(-15%) translateY(12px); }
   100% { transform: translateX(0) translateY(0); }
 }
 
