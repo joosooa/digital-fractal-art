@@ -91,7 +91,7 @@ const AccessForm = ({ onClose }: AccessFormProps) => {
             className="text-4xl md:text-5xl font-semibold text-neutral-900 mb-6 leading-tight"
             style={{ letterSpacing: '-0.03em' }}
           >
-            글로벌 식품 트렌드에
+            글로벌 K-Food 인텔리전스에
             <br />
             <span className="bg-gradient-to-r from-primary to-pink-400 bg-clip-text text-transparent">
               먼저 접근하세요
