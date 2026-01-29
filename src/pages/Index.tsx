@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import DataStream from '@/components/DataStream';
 import Navigation from '@/components/Navigation';
 import Logo from '@/components/Logo';
@@ -8,51 +8,60 @@ import AccessForm from '@/components/AccessForm';
 
 const Index = () => {
   const [fillPercent, setFillPercent] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [wasFullyFilled, setWasFullyFilled] = useState(false);
+  const isDraggingRef = useRef(false);
+  const wasFullyFilledRef = useRef(false);
 
   useEffect(() => {
-    if (fillPercent >= 100) {
-      setWasFullyFilled(true);
-    }
-  }, [fillPercent]);
-
-  useEffect(() => {
-    const handleMouseDown = () => setIsDragging(true);
+    const handleMouseDown = () => {
+      isDraggingRef.current = true;
+    };
+    
     const handleMouseUp = () => {
-      setIsDragging(false);
-      if (wasFullyFilled) {
+      isDraggingRef.current = false;
+      if (wasFullyFilledRef.current) {
         setShowForm(true);
       }
       setFillPercent(0);
-      setWasFullyFilled(false);
+      wasFullyFilledRef.current = false;
     };
     
     const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
+      if (isDraggingRef.current) {
         const windowHeight = window.innerHeight;
         const mouseY = e.clientY;
         const percentage = ((windowHeight - mouseY) / windowHeight) * 100;
-        setFillPercent(Math.min(100, Math.max(0, percentage)));
+        const newFill = Math.min(100, Math.max(0, percentage));
+        setFillPercent(newFill);
+        if (newFill >= 100) {
+          wasFullyFilledRef.current = true;
+        }
       }
     };
 
-    const handleTouchStart = () => setIsDragging(true);
+    const handleTouchStart = () => {
+      isDraggingRef.current = true;
+    };
+    
     const handleTouchEnd = () => {
-      setIsDragging(false);
-      if (wasFullyFilled) {
+      isDraggingRef.current = false;
+      if (wasFullyFilledRef.current) {
         setShowForm(true);
       }
       setFillPercent(0);
-      setWasFullyFilled(false);
+      wasFullyFilledRef.current = false;
     };
+    
     const handleTouchMove = (e: TouchEvent) => {
-      if (isDragging) {
+      if (isDraggingRef.current) {
         const windowHeight = window.innerHeight;
         const touchY = e.touches[0].clientY;
         const percentage = ((windowHeight - touchY) / windowHeight) * 100;
-        setFillPercent(Math.min(100, Math.max(0, percentage)));
+        const newFill = Math.min(100, Math.max(0, percentage));
+        setFillPercent(newFill);
+        if (newFill >= 100) {
+          wasFullyFilledRef.current = true;
+        }
       }
     };
 
@@ -71,7 +80,7 @@ const Index = () => {
       document.removeEventListener('touchend', handleTouchEnd);
       document.removeEventListener('touchmove', handleTouchMove);
     };
-  }, [isDragging, wasFullyFilled]);
+  }, []);
 
   const handleCloseForm = () => {
     setShowForm(false);
