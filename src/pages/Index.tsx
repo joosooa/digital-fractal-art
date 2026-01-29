@@ -88,13 +88,13 @@ const Index = () => {
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden">
+    <div className="relative w-full h-[200vh] overflow-hidden">
       {/* Hero Section */}
       <div 
-        className="absolute inset-0 bg-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className="fixed inset-0 bg-background transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ 
-          transform: `translateY(-${scrollOffset}%)`,
-          opacity: scrollOffset > 50 ? 1 - (scrollOffset - 50) / 50 : 1
+          transform: `translateY(-${scrollOffset * 1.2}%)`,
+          opacity: scrollOffset > 30 ? 1 - (scrollOffset - 30) / 40 : 1
         }}
       >
         <DataStream />
@@ -104,12 +104,31 @@ const Index = () => {
         <Instruction text={fillPercent >= 100 ? "SCROLL DOWN TO CONTINUE" : "SCROLL TO DECODE"} />
       </div>
 
+      {/* Gradient Transition Zone */}
+      <div 
+        className="fixed inset-0 pointer-events-none transition-opacity duration-700"
+        style={{ 
+          opacity: scrollOffset > 20 && scrollOffset < 80 ? (scrollOffset - 20) / 30 : scrollOffset >= 80 ? 1 - (scrollOffset - 80) / 20 : 0,
+          background: `linear-gradient(
+            180deg,
+            hsl(330, 100%, 38%) 0%,
+            hsl(330, 100%, 42%) 20%,
+            hsl(330, 80%, 50%) 40%,
+            hsl(340, 60%, 70%) 60%,
+            hsl(350, 40%, 85%) 80%,
+            hsl(0, 20%, 95%) 100%
+          )`,
+          zIndex: 15
+        }}
+      />
+
       {/* Form Section */}
       <div 
-        className="absolute inset-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        className="fixed inset-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
         style={{ 
-          transform: `translateY(${100 - scrollOffset}%)`,
-          opacity: scrollOffset < 50 ? scrollOffset / 50 : 1
+          transform: `translateY(${Math.max(0, 100 - scrollOffset * 1.2)}%)`,
+          opacity: scrollOffset < 40 ? 0 : (scrollOffset - 40) / 30,
+          zIndex: 20
         }}
       >
         <AccessForm onClose={handleBackToHero} />
