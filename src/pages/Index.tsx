@@ -91,8 +91,11 @@ const Index = () => {
     <div className="relative w-full h-full overflow-hidden">
       {/* Hero Section */}
       <div 
-        className="absolute inset-0 bg-background transition-transform duration-300 ease-out"
-        style={{ transform: `translateY(-${scrollOffset}%)` }}
+        className="absolute inset-0 bg-background transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{ 
+          transform: `translateY(-${scrollOffset}%)`,
+          opacity: scrollOffset > 50 ? 1 - (scrollOffset - 50) / 50 : 1
+        }}
       >
         <DataStream />
         <Scanline />
@@ -103,8 +106,11 @@ const Index = () => {
 
       {/* Form Section */}
       <div 
-        className="absolute inset-0 transition-transform duration-300 ease-out"
-        style={{ transform: `translateY(${100 - scrollOffset}%)` }}
+        className="absolute inset-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{ 
+          transform: `translateY(${100 - scrollOffset}%)`,
+          opacity: scrollOffset < 50 ? scrollOffset / 50 : 1
+        }}
       >
         <AccessForm onClose={handleBackToHero} />
       </div>
